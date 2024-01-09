@@ -1,57 +1,69 @@
-const allFolders = [];
-
 // folder-related functions
-const newFolder = (folderName) => {
-  let name = folderName;
-  let status = false;
-  const itemList = [];
 
-  const getName = () => name;
-  const setName = (newName) => { name = newName; };
-  const getStatus = () => status;
-  const setStatus = (option) => { status = option; };
+const controller = () => {
+  const allFolders = [];
+  const newFolder = (folderName) => {
+    let name = folderName;
+    let active = false;
+    const itemList = [];
+
+    const getName = () => name;
+    const setName = (newName) => { name = newName; };
+    const getActive = () => active;
+    const setActive = (option) => { active = option; };
+
+    const findItem = (content) => itemList.find((item) => item.getContent() === content);
+    const newItem = (newContent) => {
+      let content = newContent;
+      let status = false;
+      const getContent = () => content;
+      const setContent = (update) => { content = update; };
+      const getStatus = () => status;
+      const setStatus = (option) => { status = option; };
+      return {
+        getContent, setContent, getStatus, setStatus,
+      };
+    };
+    const addItem = (content) => {
+      itemList.push(newItem(content));
+    };
+
+    const removeItem = (content) => {
+      itemList.splice(findItem(content), 1);
+    };
+
+    return {
+      itemList,
+      getActive,
+      setActive,
+      getName,
+      setName,
+      addItem,
+      findItem,
+      removeItem,
+    };
+  };
+  const setActiveFolder = (name) => {
+    allFolders.forEach((folder) => { folder.setActive(false); });
+    allFolders.find((folder) => folder.getName() === name).setActive(true);
+  };
+  const addFolder = (name) => {
+    allFolders.push(newFolder(name));
+    setActiveFolder(name);
+  };
+  const removeFolder = (name) => {
+    allFolders.splice(allFolders.find((folder) => folder.getName() === name), 1);
+    setActiveFolder(allFolders[0].getName());
+  };
+  const activeFolder = () => allFolders.filter((folder) => folder.getActive() === true)[0];
 
   return {
-    itemList, getStatus, setStatus, getName, setName,
+    allFolders,
+    addFolder,
+    removeFolder,
+    setActiveFolder,
+    activeFolder,
   };
 };
-const setActiveFolder = (name) => {
-  allFolders.forEach((folder) => { folder.setStatus(false); });
-  allFolders.find((folder) => folder.getName() === name).setStatus(true);
-};
-const addFolder = (name) => {
-  allFolders.push(newFolder(name));
-  setActiveFolder(name);
-};
-const removeFolder = (name) => {
-  allFolders.splice(allFolders.find((folder) => folder.getName() === name), 1);
-  setActiveFolder(allFolders[0].getName());
-};
-const activeFolder = () => allFolders.filter((folder) => folder.getStatus() === true)[0];
 
-// item-related functions
-const newItem = (itemContent) => {
-  let content = itemContent;
-  let status = false;
-
-  const getContent = () => content;
-  const setContent = (update) => { content = update; };
-  const getStatus = () => status;
-  const setStatus = (option) => { status = option; };
-
-  return {
-    getContent, setContent, getStatus, setStatus,
-  };
-};
-const addItem = (content) => {
-  activeFolder().itemList.push(newItem(content));
-};
-const removeItem = (content) => {
-  const rmItem = activeFolder().itemList.find((item) => item.getContent() === content);
-  activeFolder().itemList.splice(rmItem, 1);
-};
-
-export {
-  allFolders, addFolder, removeFolder, setActiveFolder,
-  addItem, removeItem, activeFolder,
-};
+export default controller;
