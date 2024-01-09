@@ -1,6 +1,6 @@
-import controller from './logic';
+import logicController from './logic';
 
-const logic = controller();
+const logic = logicController();
 
 logic.addFolder('First Folder');
 logic.activeFolder().addItem('testing');

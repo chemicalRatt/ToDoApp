@@ -1,6 +1,6 @@
 // folder-related functions
 
-const controller = () => {
+const logicController = () => {
   const allFolders = [];
   const newFolder = (folderName) => {
     let name = folderName;
@@ -66,4 +66,4 @@ const controller = () => {
   };
 };
 
-export default controller;
+export default logicController;
