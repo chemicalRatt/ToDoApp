@@ -6,7 +6,6 @@ const logicController = () => {
     let name = folderName;
     let active = false;
     const itemList = [];
-
     const getName = () => name;
     const setName = (newName) => { name = newName; };
     const getActive = () => active;
