@@ -1,8 +1,7 @@
 import logicController from './logic';
+import domController from './dom';
 
 const logic = logicController();
+const dom = domController();
 
-logic.addFolder('First Folder');
-logic.activeFolder().addItem('testing');
-
-console.log(logic.activeFolder().findItem('testing').getContent());
+dom.init();
