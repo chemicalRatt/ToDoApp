@@ -14,7 +14,29 @@ const domController = () => {
     sideBar.appendChild(title);
   };
 
-  return { init };
+  const addFolder = (name, id) => {
+    const tmp = document.createElement('div');
+    tmp.innerText = name;
+    tmp.classList.add('folder');
+    tmp.id = id;
+    sideBar.appendChild(tmp);
+    console.log(tmp.id);
+  };
+
+  const setActiveFolder = (id) => {
+    document.querySelectorAll('div').forEach((el) => el.classList.remove('active-folder'));
+    document.getElementById(id).classList.add('active-folder');
+  };
+
+  const clearFolders = () => {
+    while (sideBar.lastChild) {
+      sideBar.removeChild(sideBar.lastChild);
+    }
+  };
+
+  return {
+    init, addFolder, setActiveFolder, clearFolders,
+  };
 };
 
 export default domController;

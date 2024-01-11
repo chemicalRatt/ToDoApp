@@ -9,7 +9,9 @@ const logicController = () => {
     const getName = () => name;
     const setName = (newName) => { name = newName; };
     const getActive = () => active;
-    const setActive = (option) => { active = option; };
+    const setActive = (option) => {
+      active = option;
+    };
 
     const findItem = (content) => itemList.find((item) => item.getContent() === content);
     const newItem = (newContent) => {
@@ -42,17 +44,18 @@ const logicController = () => {
       removeItem,
     };
   };
-  const setActiveFolder = (name) => {
-    allFolders.forEach((folder) => { folder.setActive(false); });
-    allFolders.find((folder) => folder.getName() === name).setActive(true);
-  };
+
+  const clearActive = () => { allFolders.forEach((folder) => { folder.setActive(false); }); };
   const addFolder = (name) => {
-    allFolders.push(newFolder(name));
-    setActiveFolder(name);
+    const tmp = newFolder(name);
+    clearActive();
+    tmp.setActive(true);
+    allFolders.push(tmp);
   };
-  const removeFolder = (name) => {
-    allFolders.splice(allFolders.find((folder) => folder.getName() === name), 1);
-    setActiveFolder(allFolders[0].getName());
+  const removeFolder = (id) => {
+    allFolders.splice(allFolders[id], 1);
+    clearActive();
+    allFolders[0].setActive(true);
   };
   const activeFolder = () => allFolders.filter((folder) => folder.getActive() === true)[0];
 
@@ -60,8 +63,8 @@ const logicController = () => {
     allFolders,
     addFolder,
     removeFolder,
-    setActiveFolder,
     activeFolder,
+    clearActive,
   };
 };
 
