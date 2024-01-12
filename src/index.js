@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-use-before-define */
 import LogicController from './logic-controller';
 import DomController from './dom-controller';
 
@@ -26,10 +28,18 @@ const addListeners = () => {
       }
     });
   });
+
+  document.getElementById('new-project-button').addEventListener('click', () => {
+    const tmp = prompt('Enter Project Name');
+    if (tmp != null && tmp !== '') {
+      LOGIC.addProject(tmp);
+      RenderDom();
+    }
+  });
 };
 
 const RenderDom = () => {
-  DOM.clearAll();
+  DOM.resetLists();
   LOGIC.PROJECTS.forEach((project, index) => {
     DOM.addProject(project.name, index);
     if (project.isActive) {
@@ -44,9 +54,8 @@ const RenderDom = () => {
   addListeners();
 };
 
-LOGIC.addProject('New Project');
+LOGIC.addProject('Default Project');
 LOGIC.getActiveProject().addItem('Testing Item');
-LOGIC.addProject('New Project');
 RenderDom();
 
 // render items

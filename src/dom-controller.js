@@ -12,6 +12,7 @@ const DomController = () => {
 
     const sideBar = document.createElement('div');
     sideBar.classList.add('side-bar');
+
     sideBar.id = 'p-list';
 
     const taskList = document.createElement('div');
@@ -26,12 +27,19 @@ const DomController = () => {
     tmp.classList.add('project');
     tmp.id = id;
     tmp.innerText = name;
-    PLIST.appendChild(tmp);
+    PLIST.insertBefore(tmp, PLIST.lastChild);
   };
 
-  const clearAll = () => {
-    document.getElementById('p-list').innerText = '';
-    document.getElementById('t-list').innerText = '';
+  const resetLists = () => {
+    const pList = document.getElementById('p-list');
+    pList.innerText = '';
+    const tList = document.getElementById('t-list');
+    tList.innerText = '';
+
+    const addPButton = document.createElement('button');
+    addPButton.innerText = 'New Project';
+    addPButton.id = 'new-project-button';
+    pList.appendChild(addPButton);
   };
 
   const setActiveProject = (id) => {
@@ -48,7 +56,6 @@ const DomController = () => {
       tmp.classList.add('completed');
     }
 
-    
     const tmpBtn = document.createElement('INPUT');
     tmpBtn.setAttribute('type', 'checkbox');
     tmpBtn.classList.add('checkbox');
@@ -59,7 +66,7 @@ const DomController = () => {
   };
 
   return {
-    initDom, addProject, clearAll, setActiveProject, addTask,
+    initDom, addProject, resetLists, setActiveProject, addTask,
   };
   // render
   // clear
