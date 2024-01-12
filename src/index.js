@@ -14,21 +14,39 @@ const addListeners = () => {
       RenderDom();
     });
   });
+
+  document.querySelectorAll('.checkbox').forEach((box) => {
+    box.addEventListener('change', () => {
+      if (box.checked) {
+        LOGIC.getActiveProject().ITEMS[box.parentElement.id].isComplete = true;
+        box.parentElement.classList.add('completed');
+      } else {
+        LOGIC.getActiveProject().ITEMS[box.parentElement.id].isComplete = false;
+        box.parentElement.classList.remove('completed');
+      }
+    });
+  });
 };
 
 const RenderDom = () => {
-  DOM.clearProjects();
+  DOM.clearAll();
   LOGIC.PROJECTS.forEach((project, index) => {
     DOM.addProject(project.name, index);
     if (project.isActive) {
       DOM.setActiveProject(index);
     }
   });
+
+  LOGIC.getActiveProject().ITEMS.forEach((item, index) => {
+    DOM.addTask(item.content, item.isComplete, index);
+  });
+
   addListeners();
 };
 
 LOGIC.addProject('New Project');
 LOGIC.getActiveProject().addItem('Testing Item');
+LOGIC.addProject('New Project');
 RenderDom();
 
 // render items

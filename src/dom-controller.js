@@ -1,11 +1,9 @@
 const DomController = () => {
   const ROOT = document.getElementById('content');
 
-  const ILIST = document.getElementById('t-list');
-
   const initDom = () => {
     const header = document.createElement('header');
-    header.innerText = 'ToDo App';
+    header.innerText = 'To Do List';
     document.body.insertBefore(header, document.body.firstChild);
 
     const footer = document.createElement('footer');
@@ -31,17 +29,37 @@ const DomController = () => {
     PLIST.appendChild(tmp);
   };
 
-  const clearProjects = () => {
-    const PLIST = document.getElementById('p-list');
-    PLIST.innerText = '';
+  const clearAll = () => {
+    document.getElementById('p-list').innerText = '';
+    document.getElementById('t-list').innerText = '';
   };
 
   const setActiveProject = (id) => {
     document.getElementById(id).classList.add('active-project');
   };
 
+  const addTask = (content, status, id) => {
+    const TLIST = document.getElementById('t-list');
+    const tmp = document.createElement('div');
+    tmp.classList.add('task');
+    tmp.id = id;
+    tmp.innerText = content;
+    if (status === true) {
+      tmp.classList.add('completed');
+    }
+
+    
+    const tmpBtn = document.createElement('INPUT');
+    tmpBtn.setAttribute('type', 'checkbox');
+    tmpBtn.classList.add('checkbox');
+
+    tmpBtn.checked = status;
+    tmp.insertBefore(tmpBtn, tmp.firstChild);
+    TLIST.appendChild(tmp);
+  };
+
   return {
-    initDom, addProject, clearProjects, setActiveProject,
+    initDom, addProject, clearAll, setActiveProject, addTask,
   };
   // render
   // clear
