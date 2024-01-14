@@ -29,19 +29,10 @@ const LogicController = () => {
     PROJECTS.push(NewProject(input));
     setActiveProject(Number(PROJECTS.length) - 1);
   };
-  const removeProject = (id) => {
+  const removeProject = () => {
     if (PROJECTS.length > 1) {
-      if (PROJECTS[id] === getActiveProject()) {
-        if (id !== 0) {
-          setActiveProject(id - 1);
-          PROJECTS.splice(id, 1);
-        } else {
-          setActiveProject(1);
-          PROJECTS.splice(id, 1);
-        }
-      } else {
-        PROJECTS.splice(id, 1);
-      }
+      PROJECTS.splice(PROJECTS.indexOf(getActiveProject()), 1);
+      setActiveProject(0);
     }
   };
 

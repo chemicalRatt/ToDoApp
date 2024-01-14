@@ -36,6 +36,11 @@ const addListeners = () => {
       RenderDom();
     }
   });
+
+  document.getElementById('delete-project-button').addEventListener('click', () => {
+    LOGIC.removeProject();
+    RenderDom();
+  });
 };
 
 const RenderDom = () => {

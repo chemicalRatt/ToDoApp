@@ -27,7 +27,7 @@ const DomController = () => {
     tmp.classList.add('project');
     tmp.id = id;
     tmp.innerText = name;
-    PLIST.insertBefore(tmp, PLIST.lastChild);
+    PLIST.appendChild(tmp);
   };
 
   const resetLists = () => {
@@ -39,7 +39,12 @@ const DomController = () => {
     const addPButton = document.createElement('button');
     addPButton.innerText = 'New Project';
     addPButton.id = 'new-project-button';
-    pList.appendChild(addPButton);
+
+    const deletePButton = document.createElement('button');
+    deletePButton.innerText = 'Delete Project';
+    deletePButton.id = 'delete-project-button';
+
+    pList.append(addPButton, deletePButton);
   };
 
   const setActiveProject = (id) => {
