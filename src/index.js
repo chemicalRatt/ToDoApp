@@ -41,6 +41,23 @@ const addListeners = () => {
     LOGIC.removeProject();
     RenderDom();
   });
+
+  document.getElementById('new-item-button').addEventListener('click', () => {
+    const tmp = prompt('Enter Item Name');
+    if (tmp != null && tmp !== '') {
+      LOGIC.getActiveProject().addItem(tmp);
+      RenderDom();
+    }
+  });
+
+  document.getElementById('delete-item-button').addEventListener('click', () => {
+    document.querySelectorAll('.checkbox').forEach((box) => {
+      if (box.checked) {
+        LOGIC.getActiveProject().removeItem(box.parentElement.id);
+        RenderDom();
+      }
+    });
+  });
 };
 
 const RenderDom = () => {
@@ -62,5 +79,3 @@ const RenderDom = () => {
 LOGIC.addProject('Default Project');
 LOGIC.getActiveProject().addItem('Testing Item');
 RenderDom();
-
-// render items

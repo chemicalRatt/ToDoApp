@@ -44,7 +44,16 @@ const DomController = () => {
     deletePButton.innerText = 'Delete Project';
     deletePButton.id = 'delete-project-button';
 
+    const addIButton = document.createElement('button');
+    addIButton.innerText = 'New Item';
+    addIButton.id = 'new-item-button';
+
+    const deleteIButton = document.createElement('button');
+    deleteIButton.innerText = 'Clear Completed Items';
+    deleteIButton.id = 'delete-item-button';
+
     pList.append(addPButton, deletePButton);
+    tList.append(addIButton, deleteIButton);
   };
 
   const setActiveProject = (id) => {
